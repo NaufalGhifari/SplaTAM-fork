@@ -1,9 +1,11 @@
 import os
 from os.path import join as p_join
 
-scenes = ["room0", "room1", "room2",
-          "office0", "office1", "office2",
-          "office_", "office4"]
+# scenes = ["room0", "room1", "room2",
+#           "office0", "office1", "office2",
+#           "office_", "office4"]
+
+scenes = ["room0"]
 
 primary_device="cuda:0"
 seed = 0
@@ -19,7 +21,7 @@ group_name = "Replica"
 run_name = f"{scene_name}_{seed}"
 
 config = dict(
-    workdir=f"./experiments/{group_name}",
+    workdir=f"/kaggle/working/experiments/{group_name}",
     run_name=run_name,
     seed=seed,
     primary_device=primary_device,
@@ -36,7 +38,7 @@ config = dict(
     checkpoint_time_idx=0,
     save_checkpoints=False, # Save Checkpoints
     checkpoint_interval=100, # Checkpoint Interval
-    use_wandb=True,
+    use_wandb=False,
     wandb=dict(
         entity="theairlab",
         project="SplaTAM",
@@ -46,7 +48,7 @@ config = dict(
         eval_save_qual=True,
     ),
     data=dict(
-        basedir="./data/Replica",
+        basedir="/kaggle/input/datasets/naufalalghifari/replica-dataset-slam",
         gradslam_data_cfg="./configs/data/replica.yaml",
         sequence=scene_name,
         desired_image_height=680,
@@ -131,6 +133,6 @@ config = dict(
         viz_near=0.01, viz_far=100.0,
         view_scale=2,
         viz_fps=5, # FPS for Online Recon Viz
-        enter_interactive_post_online=True, # Enter Interactive Mode after Online Recon Viz
+        enter_interactive_post_online=False, # Enter Interactive Mode after Online Recon Viz
     ),
 )
