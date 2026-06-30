@@ -11,11 +11,19 @@ primary_device="cuda:0"
 seed = 0
 scene_name = scenes[0]
 
-map_every = 1
-keyframe_every = 5
+# default hyper-parameters
+# map_every = 1
+# keyframe_every = 5
+# mapping_window_size = 24
+# tracking_iters = 40
+# mapping_iters = 60
+
+# for faster runtime
+map_every = 4
+keyframe_every = 10
 mapping_window_size = 24
-tracking_iters = 40
-mapping_iters = 60
+tracking_iters = 30
+mapping_iters = 50
 
 group_name = "Replica"
 run_name = f"{scene_name}_{seed}"
@@ -47,16 +55,27 @@ config = dict(
         save_qual=False,
         eval_save_qual=True,
     ),
+    # data=dict(
+    #     basedir="/tmp/Replica",
+    #     gradslam_data_cfg="./configs/data/replica.yaml",
+    #     sequence=scene_name,
+    #     desired_image_height=680,
+    #     desired_image_width=1200,
+    #     start=0,
+    #     end=-1,
+    #     stride=1,
+    #     num_frames=-1,
+    # ),
     data=dict(
         basedir="/tmp/Replica",
         gradslam_data_cfg="./configs/data/replica.yaml",
         sequence=scene_name,
-        desired_image_height=680,
-        desired_image_width=1200,
+        desired_image_height=340,
+        desired_image_width=600,
         start=0,
-        end=-1,
+        end=500,
         stride=1,
-        num_frames=-1,
+        num_frames=500,
     ),
     tracking=dict(
         use_gt_poses=False, # Use GT Poses for Tracking
