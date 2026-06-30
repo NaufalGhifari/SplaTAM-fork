@@ -48,7 +48,7 @@ config = dict(
         eval_save_qual=True,
     ),
     data=dict(
-        basedir="/kaggle/input/datasets/naufalalghifari/replica-dataset-slam",
+        basedir="/tmp/Replica",
         gradslam_data_cfg="./configs/data/replica.yaml",
         sequence=scene_name,
         desired_image_height=680,
