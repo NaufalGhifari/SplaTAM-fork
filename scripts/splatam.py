@@ -686,7 +686,7 @@ def rgbd_slam(config: dict):
             iter = 0
             do_continue_slam = False
             num_iters_tracking = config['tracking']['num_iters']
-            progress_bar = tqdm(range(num_iters_tracking), desc=f"Tracking Time Step: {time_idx}")
+            # progress_bar = tqdm(range(num_iters_tracking), desc=f"Tracking Time Step: {time_idx}")
             while True:
                 iter_start_time = time.time()
                 # Loss for current frame
@@ -717,7 +717,8 @@ def rgbd_slam(config: dict):
                         else:
                             report_progress(params, tracking_curr_data, iter+1, progress_bar, iter_time_idx, sil_thres=config['tracking']['sil_thres'], tracking=True)
                     else:
-                        progress_bar.update(1)
+                        # progress_bar.update(1)
+                        pass
                 # Update the runtime numbers
                 iter_end_time = time.time()
                 tracking_iter_time_sum += iter_end_time - iter_start_time
@@ -737,7 +738,7 @@ def rgbd_slam(config: dict):
                     else:
                         break
 
-            progress_bar.close()
+            # progress_bar.close()
             # Copy over the best candidate rotation & translation
             with torch.no_grad():
                 params['cam_unnorm_rots'][..., time_idx] = candidate_cam_unnorm_rot
