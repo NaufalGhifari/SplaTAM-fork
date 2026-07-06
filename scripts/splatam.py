@@ -824,8 +824,10 @@ def rgbd_slam(config: dict):
 
             # Mapping
             mapping_start_time = time.time()
-            if num_iters_mapping > 0:
-                progress_bar = tqdm(range(num_iters_mapping), desc=f"Mapping Time Step: {time_idx}")
+            
+            # if num_iters_mapping > 0:
+                #progress_bar = tqdm(range(num_iters_mapping), desc=f"Mapping Time Step: {time_idx}")
+            
             for iter in range(num_iters_mapping):
                 iter_start_time = time.time()
                 # Randomly select a frame until current time step amongst keyframes
@@ -879,13 +881,15 @@ def rgbd_slam(config: dict):
                             report_progress(params, iter_data, iter+1, progress_bar, iter_time_idx, sil_thres=config['mapping']['sil_thres'], 
                                             mapping=True, online_time_idx=time_idx)
                     else:
-                        progress_bar.update(1)
+                        #progress_bar.update(1)
+                        pass
                 # Update the runtime numbers
                 iter_end_time = time.time()
                 mapping_iter_time_sum += iter_end_time - iter_start_time
                 mapping_iter_time_count += 1
             if num_iters_mapping > 0:
-                progress_bar.close()
+                #progress_bar.close()
+                pass
             # Update the runtime numbers
             mapping_end_time = time.time()
             mapping_frame_time_sum += mapping_end_time - mapping_start_time
