@@ -453,6 +453,9 @@ def convert_params_to_store(params):
 
 
 def rgbd_slam(config: dict):
+    # track time
+    total_start_time = time.time()
+    
     # Print Config
     print("Loaded Config:")
     if "use_depth_loss_thres" not in config['tracking']:
@@ -989,6 +992,20 @@ def rgbd_slam(config: dict):
     
     # Save Parameters
     save_params(params, output_dir)
+
+    # ====== Time calc ======
+    total_end_time = time.time()
+    total_duration = total_end_time - total_start_time
+
+    # Calculate hours, minutes, and seconds
+    hours = int(total_duration // 3600)
+    minutes = int((total_duration % 3600) // 60)
+    seconds = int(total_duration % 60)
+
+    print("\n" + "="*50)
+    print(f"Run finished in {hours} hrs {minutes} minutes {seconds} seconds")
+    print("="*50 + "\n")
+    # ============
 
     # Close WandB Run
     if config['use_wandb']:
