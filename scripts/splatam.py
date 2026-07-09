@@ -24,7 +24,7 @@ import wandb
 from datasets.gradslam_datasets import (load_dataset_config, ICLDataset, ReplicaDataset, ReplicaV2Dataset, AzureKinectDataset,
                                         ScannetDataset, Ai2thorDataset, Record3DDataset, RealsenseDataset, TUMDataset,
                                         ScannetPPDataset, NeRFCaptureDataset)
-from utils.common_utils import seed_everything, save_params_ckpt, save_params
+from utils.common_utils import seed_everything, save_params_ckpt, save_params, get_grad_norm
 from utils.eval_helpers import report_loss, report_progress, eval
 from utils.keyframe_selection import keyframe_selection_overlap
 from utils.recon_helpers import setup_camera
@@ -471,6 +471,12 @@ def rgbd_slam(config: dict):
     output_dir = os.path.join(config["workdir"], config["run_name"])
     eval_dir = os.path.join(output_dir, "eval")
     os.makedirs(eval_dir, exist_ok=True)
+
+    # Create gradients log file ========================
+    grad_log_path = os.path.join(output_dir, "gradient_convergence_logs.txt")
+    with open(grad_log_path, "w") as f:
+        f.write("Frame,Stage,Iteration,Loss,Grad_Norm,Extra_Info\n") # CSV header format
+    # ==================================================
     
     # Init WandB
     if config['use_wandb']:
@@ -701,8 +707,21 @@ def rgbd_slam(config: dict):
                 if config['use_wandb']:
                     # Report Loss
                     wandb_tracking_step = report_loss(losses, wandb_run, wandb_tracking_step, tracking=True)
+                
                 # Backprop
                 loss.backward()
+
+                # Tracking Gradient norm logging ============
+                tracking_params = [params['cam_unnorm_rots'], params['cam_trans']]
+                track_grad_norm = get_grad_norm(tracking_params)
+                
+                ## Log the first, middle, and last iteration to keep file size reasonable
+                # if iter == 0 or iter == (num_iters_tracking // 2) or iter == (num_iters_tracking - 1):
+                with open(grad_log_path, "a") as f:
+                    f.write(f"{time_idx},Tracking,{iter},{loss.item():.6f},{track_grad_norm:.6f},None\n")
+                # ============================================
+
+
                 # Optimizer Update
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
@@ -858,6 +877,19 @@ def rgbd_slam(config: dict):
                     wandb_mapping_step = report_loss(losses, wandb_run, wandb_mapping_step, mapping=True)
                 # Backprop
                 loss.backward()
+
+                # Mapping gradients logging ===========================
+                map_params = [v for k, v in params.items() if v.requires_grad]
+                map_grad_norm = get_grad_norm(map_params)
+                
+                # Also log the geometric specific mean coordinates grad norm
+                means3d_grad_norm = params['means3D'].grad.detach().norm(2).item() if params['means3D'].grad is not None else 0.0
+
+                #if iter == 0 or iter == (num_iters_mapping // 2) or iter == (num_iters_mapping - 1):
+                with open(grad_log_path, "a") as f:
+                    f.write(f"{time_idx},Mapping,{iter},{loss.item():.6f},{map_grad_norm:.6f},means3D_norm:{means3d_grad_norm:.6f}\n")
+                # ================================================
+
                 with torch.no_grad():
                     # Prune Gaussians
                     if config['mapping']['prune_gaussians']:

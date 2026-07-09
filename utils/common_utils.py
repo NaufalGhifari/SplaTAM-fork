@@ -5,6 +5,18 @@ import random
 import torch
 
 
+def get_grad_norm(parameters):
+    """
+    Computes the L2 norm of the gradients for a list/dict of PyTorch parameters.
+    Returns 0.0 if gradients are None.
+    """
+    total_norm = 0.0
+    for p in parameters:
+        if p.grad is not None:
+            param_norm = p.grad.detach().data.norm(2)
+            total_norm += param_norm.item() ** 2
+    return total_norm ** 0.5
+
 def seed_everything(seed=42):
     """
         Set the `seed` value for torch and numpy seeds. Also turns on
