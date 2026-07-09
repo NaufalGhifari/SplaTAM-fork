@@ -18,7 +18,7 @@ tracking_iters = 30         # default: 40
 mapping_iters = 50          # default: 60
 
 group_name = "Replica"
-run_name = f"{scene_name}_Sil-Thresh-50_{seed}"
+run_name = f"{scene_name}_Sil-Thresh-0_{seed}"
 
 config = dict(
     workdir=f"/kaggle/working/experiments/{group_name}",
