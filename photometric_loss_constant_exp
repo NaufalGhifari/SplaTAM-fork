@@ -1,0 +1,76 @@
+## Baseline Photometric Penalty lambda = 0.5
+Average Tracking/Iteration Time: 38.420191887758044 ms
+Average Tracking/Frame Time: 1.152524491071701 s
+Average Mapping/Iteration Time: 45.525331620922586 ms
+Average Mapping/Frame Time: 2.276334130597448 s
+Final Average ATE RMSE: 0.38 cm
+Average PSNR: 32.28
+Average Depth RMSE: 0.70 cm
+Average Depth L1: 0.70 cm
+Average MS-SSIM: 0.978
+Average LPIPS: 0.064
+
+==================================================
+
+## Photometric Penalty lambda = 0.25
+Average Tracking/Iteration Time: 37.68141619141785 ms
+Average Tracking/Frame Time: 1.1303840036392212 s
+Average Mapping/Iteration Time: 44.53329170059539 ms
+Average Mapping/Frame Time: 2.2267369733837072 s
+Final Average ATE RMSE: 0.36 cm
+Average PSNR: 31.94
+Average Depth RMSE: 0.70 cm
+Average Depth L1: 0.70 cm
+Average MS-SSIM: 0.976
+Average LPIPS: 0.071
+
+Run finished in 1 hrs 6 minutes 40 seconds
+==================================================
+
+## Photometric Penalty lambda = 0.75
+
+Average Tracking/Iteration Time: 36.924094984446725 ms
+Average Tracking/Frame Time: 1.1076768796443939 s
+Average Mapping/Iteration Time: 43.709641949621265 ms
+Average Mapping/Frame Time: 2.18555637605176 s
+Final Average ATE RMSE: 0.38 cm
+Average PSNR: 32.58
+Average Depth RMSE: 0.72 cm
+Average Depth L1: 0.72 cm
+Average MS-SSIM: 0.979
+Average LPIPS: 0.061
+
+Run finished in 1 hrs 5 minutes 37 seconds
+==================================================
+
+# Photometric Loss Constant lambda = 1.0
+
+Average Tracking/Iteration Time: 37.633988848125334 ms
+Average Tracking/Frame Time: 1.128978910446167 s
+Average Mapping/Iteration Time: 44.75669608620588 ms
+Average Mapping/Frame Time: 2.2379135566795183 s
+Final Average ATE RMSE: 0.35 cm
+Average PSNR: 32.78
+Average Depth RMSE: 0.72 cm
+Average Depth L1: 0.72 cm
+Average MS-SSIM: 0.980
+Average LPIPS: 0.057
+
+Run finished in 1 hrs 6 minutes 47 seconds
+==================================================
+
+# photometric loss constant lambda = 0
+
+Average Tracking/Iteration Time: 40.54891704141408 ms
+Average Tracking/Frame Time: 1.216406483411789 s
+Average Mapping/Iteration Time: 47.26032423639963 ms
+Average Mapping/Frame Time: 2.3631021176983498 s
+Final Average ATE RMSE: 0.66 cm
+Average PSNR: 20.66
+Average Depth RMSE: 0.70 cm
+Average Depth L1: 0.70 cm
+Average MS-SSIM: 0.756
+Average LPIPS: 0.391
+
+Run finished in 1 hrs 10 minutes 44 seconds
+==================================================

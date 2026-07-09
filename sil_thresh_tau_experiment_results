@@ -1,0 +1,109 @@
+## Baseline
+Average Tracking/Iteration Time: 38.420191887758044 ms
+Average Tracking/Frame Time: 1.152524491071701 s
+Average Mapping/Iteration Time: 45.525331620922586 ms
+Average Mapping/Frame Time: 2.276334130597448 s
+Final Average ATE RMSE: 0.38 cm
+Average PSNR: 32.28
+Average Depth RMSE: 0.70 cm
+Average Depth L1: 0.70 cm
+Average MS-SSIM: 0.978
+Average LPIPS: 0.064
+
+==================================================
+
+## Silhouette threshold = 0.5
+
+Average Tracking/Iteration Time: 36.60823448471214 ms
+Average Tracking/Frame Time: 1.0982202112674713 s
+Average Mapping/Iteration Time: 43.10430909345249 ms
+Average Mapping/Frame Time: 2.1552957336821716 s
+Final Average ATE RMSE: 2.58 cm
+Average PSNR: 29.66
+Average Depth RMSE: 1.10 cm
+Average Depth L1: 1.10 cm
+Average MS-SSIM: 0.965
+Average LPIPS: 0.093
+
+Run finished in 1 hrs 5 minutes 1 seconds
+==================================================
+
+## Silhouette threshold = 0.75
+
+Average Tracking/Iteration Time: 37.394745361413364 ms
+Average Tracking/Frame Time: 1.1217926486730576 s
+Average Mapping/Iteration Time: 44.039385885059716 ms
+Average Mapping/Frame Time: 2.2020437969657 s
+Final Average ATE RMSE: 0.74 cm
+Average PSNR: 32.03
+Average Depth RMSE: 0.71 cm
+Average Depth L1: 0.71 cm
+Average MS-SSIM: 0.977
+Average LPIPS: 0.068
+
+Run finished in 1 hrs 6 minutes 6 seconds
+==================================================
+
+# Sil thresh = 0
+
+Average Tracking/Iteration Time: 20.64441073749867 ms
+Average Tracking/Frame Time: 0.6195419251918792 s
+Average Mapping/Iteration Time: 23.718637630135238 ms
+Average Mapping/Frame Time: 1.1860070009669381 s
+Final Average ATE RMSE: 118.55 cm
+Average PSNR: 13.99
+Average Depth RMSE: 29.02 cm
+Average Depth L1: 29.02 cm
+Average MS-SSIM: 0.389
+Average LPIPS: 0.723
+
+Run finished in 0 hrs 41 minutes 13 seconds
+==================================================
+
+# Sil Thresh 0.25
+Average Tracking/Iteration Time: 29.632432977219356 ms
+Average Tracking/Frame Time: 0.8890575152635575 s
+Average Mapping/Iteration Time: 33.16114990059249 ms
+Average Mapping/Frame Time: 1.6581316517736622 s
+Final Average ATE RMSE: 51.95 cm
+Average PSNR: 15.44
+Average Depth RMSE: 29.76 cm
+Average Depth L1: 29.76 cm
+Average MS-SSIM: 0.433
+Average LPIPS: 0.640
+
+Run finished in 0 hrs 54 minutes 25 seconds
+==================================================
+
+# sil thresh 0.999999
+
+Average Tracking/Iteration Time: 15.095618702638978 ms
+Average Tracking/Frame Time: 0.45316956186294555 s
+Average Mapping/Iteration Time: 20.07808720518253 ms
+Average Mapping/Frame Time: 1.0039762822453848 s
+Final Average ATE RMSE: 112.03 cm
+Average PSNR: 13.26
+Average Depth RMSE: 60.29 cm
+Average Depth L1: 60.29 cm
+Average MS-SSIM: 0.348
+Average LPIPS: 0.831
+
+Run finished in 0 hrs 33 minutes 44 seconds
+==================================================
+
+# sil thresh = 0.9999
+
+Average Tracking/Iteration Time: 35.15589474955857 ms
+Average Tracking/Frame Time: 1.0547025109529495 s
+Average Mapping/Iteration Time: 45.15423842294963 ms
+Average Mapping/Frame Time: 2.257793770102922 s
+Final Average ATE RMSE: 0.47 cm
+Average PSNR: 31.38
+Average Depth RMSE: 0.76 cm
+Average Depth L1: 0.76 cm
+Average MS-SSIM: 0.977
+Average LPIPS: 0.068
+
+Run finished in 1 hrs 4 minutes 46 seconds
+==================================================
+
