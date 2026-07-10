@@ -720,9 +720,9 @@ def rgbd_slam(config: dict):
                 track_grad_norm = (rot_grad_norm**2 + trans_grad_norm**2)**0.5
                 
                 # Log the separate values into the Extra_Info column
-                if iter == 0 or iter == (num_iters_tracking // 2) or iter == (num_iters_tracking - 1):
-                    with open(grad_log_path, "a") as f:
-                        f.write(f"{time_idx},Tracking,{iter},{loss.item():.6f},{track_grad_norm:.6f},rot_norm:{rot_grad_norm:.6f}|trans_norm:{trans_grad_norm:.6f}\n")
+                #if iter == 0 or iter == (num_iters_tracking // 2) or iter == (num_iters_tracking - 1):
+                with open(grad_log_path, "a") as f:
+                    f.write(f"{time_idx},Tracking,{iter},{loss.item():.6f},{track_grad_norm:.6f},rot_norm:{rot_grad_norm:.6f}|trans_norm:{trans_grad_norm:.6f}\n")
                 # ============================================
 
 
@@ -895,9 +895,9 @@ def rgbd_slam(config: dict):
                 # Construct detailed info payload
                 info_str = f"means:{means_norm:.6f}|scale:{scale_norm:.6f}|rot:{rot_norm:.6f}|opac:{opac_norm:.6f}"
 
-                if iter == 0 or iter == (num_iters_mapping // 2) or iter == (num_iters_mapping - 1):
-                    with open(grad_log_path, "a") as f:
-                        f.write(f"{time_idx},Mapping,{iter},{loss.item():.6f},{map_grad_norm:.6f},{info_str}\n")
+                # if iter == 0 or iter == (num_iters_mapping // 2) or iter == (num_iters_mapping - 1):
+                with open(grad_log_path, "a") as f:
+                    f.write(f"{time_idx},Mapping,{iter},{loss.item():.6f},{map_grad_norm:.6f},{info_str}\n")
                 # ================================================
 
                 with torch.no_grad():
