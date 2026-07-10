@@ -712,13 +712,17 @@ def rgbd_slam(config: dict):
                 loss.backward()
 
                 # Tracking Gradient norm logging ============
-                tracking_params = [params['cam_unnorm_rots'], params['cam_trans']]
-                track_grad_norm = get_grad_norm(tracking_params)
+                # Calculate cam_rot and cam_trans independently
+                rot_grad_norm = params['cam_unnorm_rots'].grad.detach().norm(2).item() if params['cam_unnorm_rots'].grad is not None else 0.0
+                trans_grad_norm = params['cam_trans'].grad.detach().norm(2).item() if params['cam_trans'].grad is not None else 0.0
                 
-                ## Log the first, middle, and last iteration to keep file size reasonable
-                # if iter == 0 or iter == (num_iters_tracking // 2) or iter == (num_iters_tracking - 1):
-                with open(grad_log_path, "a") as f:
-                    f.write(f"{time_idx},Tracking,{iter},{loss.item():.6f},{track_grad_norm:.6f},None\n")
+                # Combined
+                track_grad_norm = (rot_grad_norm**2 + trans_grad_norm**2)**0.5
+                
+                # Log the separate values into the Extra_Info column
+                if iter == 0 or iter == (num_iters_tracking // 2) or iter == (num_iters_tracking - 1):
+                    with open(grad_log_path, "a") as f:
+                        f.write(f"{time_idx},Tracking,{iter},{loss.item():.6f},{track_grad_norm:.6f},rot_norm:{rot_grad_norm:.6f}|trans_norm:{trans_grad_norm:.6f}\n")
                 # ============================================
 
 
@@ -882,12 +886,18 @@ def rgbd_slam(config: dict):
                 map_params = [v for k, v in params.items() if v.requires_grad]
                 map_grad_norm = get_grad_norm(map_params)
                 
-                # Also log the geometric specific mean coordinates grad norm
-                means3d_grad_norm = params['means3D'].grad.detach().norm(2).item() if params['means3D'].grad is not None else 0.0
+                # Compute individual parameter L2 norms securely
+                means_norm = params['means3D'].grad.detach().norm(2).item() if params['means3D'].grad is not None else 0.0
+                scale_norm = params['log_scales'].grad.detach().norm(2).item() if params['log_scales'].grad is not None else 0.0
+                rot_norm   = params['unnorm_rotations'].grad.detach().norm(2).item() if params['unnorm_rotations'].grad is not None else 0.0
+                opac_norm  = params['logit_opacities'].grad.detach().norm(2).item() if params['logit_opacities'].grad is not None else 0.0
+                
+                # Construct detailed info payload
+                info_str = f"means:{means_norm:.6f}|scale:{scale_norm:.6f}|rot:{rot_norm:.6f}|opac:{opac_norm:.6f}"
 
-                #if iter == 0 or iter == (num_iters_mapping // 2) or iter == (num_iters_mapping - 1):
-                with open(grad_log_path, "a") as f:
-                    f.write(f"{time_idx},Mapping,{iter},{loss.item():.6f},{map_grad_norm:.6f},means3D_norm:{means3d_grad_norm:.6f}\n")
+                if iter == 0 or iter == (num_iters_mapping // 2) or iter == (num_iters_mapping - 1):
+                    with open(grad_log_path, "a") as f:
+                        f.write(f"{time_idx},Mapping,{iter},{loss.item():.6f},{map_grad_norm:.6f},{info_str}\n")
                 # ================================================
 
                 with torch.no_grad():
