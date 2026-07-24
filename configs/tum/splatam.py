@@ -20,7 +20,8 @@ group_name = "TUM"
 run_name = f"{scene_name}_seed{seed}_Baseline"
 
 config = dict(
-    workdir=f"./experiments/{group_name}",
+    # workdir=f"./experiments/{group_name}",
+    workdir=f"/kaggle/working/experiments/{group_name}",
     run_name=run_name,
     seed=seed,
     primary_device=primary_device,
